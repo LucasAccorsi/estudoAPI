@@ -24,10 +24,20 @@ import gft.dto.email.ConsultaEmailDTO;
 import gft.dto.email.EmailMapper;
 import gft.dto.email.RegistroEmailDTO;
 import gft.entities.Email;
+import gft.exception.EmailException;
 import gft.services.EmailService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("v1/email")
+@Tag(name = "email", description = "API Email")
 public class EmailController {
 	
 	private final EmailService emailService;
@@ -36,12 +46,65 @@ public class EmailController {
 		this.emailService = emailService;
 	}
 
+	
+	@Operation(
+            summary = "Listar todos emails",
+            description = "Listar todos emails",
+            tags = "email",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Ok",
+                            content = @Content(
+                                    array = @ArraySchema(
+                                            schema = @Schema(implementation = Email.class)
+                                    )
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad request",
+                            content = @Content(
+                                    schema = @Schema(implementation = EmailException.class)
+                            )
+                    )
+            }
+    )
 	@GetMapping
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<Page<ConsultaEmailDTO>> buscarTodasOsEmails(@PageableDefault Pageable pageable) {
 		return ResponseEntity.ok(emailService.listarTodasAsFiliais(pageable).map(EmailMapper::fromEntity));
 	}
 	
+	@Operation(
+            summary = "Enviar um email",
+            description = "Enviar um email",
+            tags = "email",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Ok",
+                            content = @Content(
+                                    array = @ArraySchema(
+                                            schema = @Schema(implementation = Email.class)
+                                    )
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad request",
+                            content = @Content(
+                                    schema = @Schema(implementation = EmailException.class)
+                            )
+                    )
+            }
+    )
 	@PostMapping
 	public ResponseEntity<ConsultaEmailDTO> salvarEmail(@RequestBody RegistroEmailDTO dto) {
 		
@@ -79,6 +142,32 @@ public class EmailController {
 		
 	}
 	
+	@Operation(
+            summary = "Buscar email por id",
+            description = "Buscar email por id",
+            tags = "email",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Ok",
+                            content = @Content(
+                                    array = @ArraySchema(
+                                            schema = @Schema(implementation = Email.class)
+                                    )
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad request",
+                            content = @Content(
+                                    schema = @Schema(implementation = EmailException.class)
+                            )
+                    )
+            }
+    )
 	@GetMapping("{id}")
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<ConsultaEmailDTO> buscarEmail(@PathVariable Long id) {
@@ -88,6 +177,32 @@ public class EmailController {
 		
 	}
 	
+	@Operation(
+            summary = "Editar e reenviar email",
+            description = "Editar e reenviar email",
+            tags = "email",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Ok",
+                            content = @Content(
+                                    array = @ArraySchema(
+                                            schema = @Schema(implementation = Email.class)
+                                    )
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad request",
+                            content = @Content(
+                                    schema = @Schema(implementation = EmailException.class)
+                            )
+                    )
+            }
+    )
 	@PutMapping("{id}")
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<ConsultaEmailDTO> alterarEmail(@RequestBody RegistroEmailDTO dto, @PathVariable Long id) {
@@ -130,6 +245,32 @@ public class EmailController {
 		
 	}
 	
+	@Operation(
+            summary = "deletar um email",
+            description = "deletar um email",
+            tags = "email",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Ok",
+                            content = @Content(
+                                    array = @ArraySchema(
+                                            schema = @Schema(implementation = Email.class)
+                                    )
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad request",
+                            content = @Content(
+                                    schema = @Schema(implementation = EmailException.class)
+                            )
+                    )
+            }
+    )
 	@DeleteMapping("{id}")
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<ConsultaEmailDTO> excluirEmail(@PathVariable Long id) {

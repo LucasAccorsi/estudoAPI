@@ -21,6 +21,7 @@ gft\entities\Usuario.class
 gft\security\SecurityConfiguration.class
 gft\dto\email\RegistroEmailDTO.class
 gft\dto\usuario\UsuarioMapper.class
+gft\config\OpenApiConfig.class
 gft\entities\Perfil.class
 gft\entities\Email.class
 gft\exception\EmailException.class

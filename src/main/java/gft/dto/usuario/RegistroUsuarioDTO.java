@@ -1,19 +1,36 @@
 package gft.dto.usuario;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class RegistroUsuarioDTO {
 	
+	@Schema(
+            description = "Email do Usuario",
+            example = "lucasaccorsi@hotmail.com",
+            required = true
+    )
 	private String email;
+	
+	@Schema(
+            description = "Senha do Usuario",
+            example = "123",
+            required = true
+    )
 	private String senha;
+	
+	@Schema(
+            description = "Perfil do Usuario",
+            example = "1",
+            required = true
+    )
 	private Long perfilId;
-	private Long filialId;
 	
 	public RegistroUsuarioDTO() {}
 	
-	public RegistroUsuarioDTO(String email, String senha, Long perfilId, Long filialId) {
+	public RegistroUsuarioDTO(String email, String senha, Long perfilId) {
 		this.email = email;
 		this.senha = senha;
 		this.perfilId = perfilId;
-		this.filialId = filialId;
 	}
 	
 	public String getEmail() {
@@ -38,13 +55,5 @@ public class RegistroUsuarioDTO {
 	
 	public void setPerfilId(Long perfilId) {
 		this.perfilId = perfilId;
-	}
-	
-	public Long getFilialId() {
-		return filialId;
-	}
-	
-	public void setFilialId(Long filialId) {
-		this.filialId = filialId;
 	}
 }

@@ -47,12 +47,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		super.configure(web);
 	}
 
+	private static final String[] AUTH_WHITELIST = {
+		"/swagger-ui/**",
+		"/swagger-ui.html",
+		"/v3/api-docs/**",
+		"/h2-console/**"
+	};
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.authorizeRequests()
+		.antMatchers(AUTH_WHITELIST).permitAll()
 		.antMatchers(HttpMethod.POST, "/v1/auth").permitAll()
-		.antMatchers("/h2-console/**").permitAll()
 		.anyRequest().authenticated()
 		.and().csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

@@ -8,16 +8,27 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @Entity
 @Table(name = "tb_perfil")
 public class Perfil implements GrantedAuthority{
 
 	private static final long serialVersionUID = 1L;
 
+	@Schema(
+            description = "Id do Perfil",
+            example = "1"
+    )
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Schema(
+            description = "Nome do Perfil",
+            example = "ADMIN",
+            required = true
+    )
 	private String nome;
 
 	public Perfil() {}

@@ -24,13 +24,13 @@ public class AutenticacaoService {
 	@Autowired
 	private AuthenticationManager authManager;
 	
-	@Value("${loja.jwt.expiration}")
+	@Value("${jwt.expiration}")
 	private String expiration;
 	
-	@Value("${loja.jwt.secret}")
+	@Value("${jwt.secret}")
 	private String secret;
 	
-	@Value("${loja.jwt.issuer}")
+	@Value("${jwt.issuer}")
 	private String issuer;
 	
 

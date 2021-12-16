@@ -7,20 +7,40 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @Entity
 @Table(name = "tb_email")
 public class Email {
-
+	
+	@Schema(
+            description = "Id do Usuario",
+            example = "1"
+    )
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Schema(
+            description = "Email do destinatario",
+            example = "lucasaccorsi@hotmail.com",
+            required = true
+    )
 	@NotEmpty(message = "Informe o email do destinatario")
 	private String destinatario;
 	
+	@Schema(
+            description = "Titulo do email",
+            example = "Teste",
+            required = true
+    )
 	@NotEmpty(message = "Informe o titulo do email")
 	private String titulo;
 	
+	@Schema(
+            description = "Conteudo do email",
+            example = "Esse e um email teste"
+    )
 	private String corpo;
 
 	public Email() {}
